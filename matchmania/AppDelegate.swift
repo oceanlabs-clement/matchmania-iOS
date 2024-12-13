@@ -1,6 +1,6 @@
 //
 //  AppDelegate.swift
-//  reactionrush
+//  matchmania
 //
 //  Created by Clement Gan on 12/12/2024.
 //

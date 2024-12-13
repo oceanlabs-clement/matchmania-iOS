@@ -16,7 +16,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		7A2A83F42D0AD0C9000DFB2B /* reactionrush.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = reactionrush.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		7A2A83F42D0AD0C9000DFB2B /* matchmania.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = matchmania.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7A2A83F72D0AD0C9000DFB2B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		7A2A83F92D0AD0C9000DFB2B /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		7A2A83FB2D0AD0C9000DFB2B /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -40,7 +40,7 @@
 		7A2A83EB2D0AD0C9000DFB2B = {
 			isa = PBXGroup;
 			children = (
-				7A2A83F62D0AD0C9000DFB2B /* reactionrush */,
+				7A2A83F62D0AD0C9000DFB2B /* matchmania */,
 				7A2A83F52D0AD0C9000DFB2B /* Products */,
 			);
 			sourceTree = "<group>";
@@ -48,12 +48,12 @@
 		7A2A83F52D0AD0C9000DFB2B /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				7A2A83F42D0AD0C9000DFB2B /* reactionrush.app */,
+				7A2A83F42D0AD0C9000DFB2B /* matchmania.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		7A2A83F62D0AD0C9000DFB2B /* reactionrush */ = {
+		7A2A83F62D0AD0C9000DFB2B /* matchmania */ = {
 			isa = PBXGroup;
 			children = (
 				7A2A83F72D0AD0C9000DFB2B /* AppDelegate.swift */,
@@ -64,15 +64,15 @@
 				7A2A84022D0AD0CB000DFB2B /* LaunchScreen.storyboard */,
 				7A2A84052D0AD0CB000DFB2B /* Info.plist */,
 			);
-			path = reactionrush;
+			path = matchmania;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		7A2A83F32D0AD0C9000DFB2B /* reactionrush */ = {
+		7A2A83F32D0AD0C9000DFB2B /* matchmania */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 7A2A84082D0AD0CB000DFB2B /* Build configuration list for PBXNativeTarget "reactionrush" */;
+			buildConfigurationList = 7A2A84082D0AD0CB000DFB2B /* Build configuration list for PBXNativeTarget "matchmania" */;
 			buildPhases = (
 				7A2A83F02D0AD0C9000DFB2B /* Sources */,
 				7A2A83F12D0AD0C9000DFB2B /* Frameworks */,
@@ -82,9 +82,9 @@
 			);
 			dependencies = (
 			);
-			name = reactionrush;
+			name = matchmania;
 			productName = reactionrush;
-			productReference = 7A2A83F42D0AD0C9000DFB2B /* reactionrush.app */;
+			productReference = 7A2A83F42D0AD0C9000DFB2B /* matchmania.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -102,7 +102,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 7A2A83EF2D0AD0C9000DFB2B /* Build configuration list for PBXProject "reactionrush" */;
+			buildConfigurationList = 7A2A83EF2D0AD0C9000DFB2B /* Build configuration list for PBXProject "matchmania" */;
 			compatibilityVersion = "Xcode 14.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -115,7 +115,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				7A2A83F32D0AD0C9000DFB2B /* reactionrush */,
+				7A2A83F32D0AD0C9000DFB2B /* matchmania */,
 			);
 		};
 /* End PBXProject section */
@@ -293,22 +293,28 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = reactionrush/Info.plist;
+				INFOPLIST_FILE = matchmania/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = "Match Mania";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.asia.reactionrush;
+				PRODUCT_BUNDLE_IDENTIFIER = com.asia.matchmania;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -320,29 +326,35 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = reactionrush/Info.plist;
+				INFOPLIST_FILE = matchmania/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = "Match Mania";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.asia.reactionrush;
+				PRODUCT_BUNDLE_IDENTIFIER = com.asia.matchmania;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		7A2A83EF2D0AD0C9000DFB2B /* Build configuration list for PBXProject "reactionrush" */ = {
+		7A2A83EF2D0AD0C9000DFB2B /* Build configuration list for PBXProject "matchmania" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				7A2A84062D0AD0CB000DFB2B /* Debug */,
@@ -351,7 +363,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		7A2A84082D0AD0CB000DFB2B /* Build configuration list for PBXNativeTarget "reactionrush" */ = {
+		7A2A84082D0AD0CB000DFB2B /* Build configuration list for PBXNativeTarget "matchmania" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				7A2A84092D0AD0CB000DFB2B /* Debug */,
