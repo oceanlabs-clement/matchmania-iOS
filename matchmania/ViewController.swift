@@ -78,6 +78,15 @@ class ViewController: UIViewController {
     }
     
     func setupModeSelection() {
+        for subview in view.subviews {
+            subview.removeFromSuperview()
+        }
+        
+        let bgImageView = UIImageView(frame: CGRect(x: 0, y: 0, width: view.frame.width, height: view.frame.height))
+        bgImageView.image = UIImage(named: "image_bg_2")
+        bgImageView.contentMode = .scaleAspectFill
+        view.addSubview(bgImageView)
+        
         // Create UI elements
         let logoImageView = UIImageView(image: UIImage(named: "logo"))
         logoImageView.translatesAutoresizingMaskIntoConstraints = false
@@ -311,7 +320,11 @@ class ViewController: UIViewController {
         let resetAction = UIAlertAction(title: "Play Again", style: .default) { _ in
             self.resetGame()
         }
-        let cancelAction = UIAlertAction(title: "Exit", style: .cancel, handler: nil)
+        let cancelAction = UIAlertAction(title: "Exit", style: .cancel) { _ in
+//            DispatchQueue.main.async {
+                self.setupModeSelection()
+//            }
+        }
         
         alertController.addAction(resetAction)
         alertController.addAction(cancelAction)
