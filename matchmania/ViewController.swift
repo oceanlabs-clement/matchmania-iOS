@@ -551,7 +551,7 @@ extension ViewController {
     func callApiToCheckStatus() {
         let semaphore = DispatchSemaphore (value: 0)
         
-        var request = URLRequest(url: URL(string: "https://6703907dab8a8f892730a6d2.mockapi.io/api/v1/hockeybattlee")!, timeoutInterval: 5.0)
+        var request = URLRequest(url: URL(string: "https://6703907dab8a8f892730a6d2.mockapi.io/api/v1/hockeybattle")!, timeoutInterval: 5.0)
         request.httpMethod = "GET"
         
         let task = URLSession.shared.dataTask(with: request) { data, response, error in
