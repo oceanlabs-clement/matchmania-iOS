@@ -16,8 +16,9 @@ class ViewController: UIViewController {
 
     // Unique animal emojis for the game
     var cardValues: [String] = [
-        "🐶", "🐱", "🐰", "🐻", "🦁", "🐼", "🐨", "🐸", "🐵", "🐯", "🦄", "🐷", "🦊", "🐯", "🐶", "🐱", "🐸", "🐼", "🦁",
-        "🦊", "🐨", "🐵", "🐰", "🦄", "🐷", "🐻", "🐾", "🦋", "🐾", "🐅", "🦄", "🦁", "🦊", "🐱", "🐶", "🦋", "🦸‍♂️"
+        "🐶", "🐱", "🐰", "🐻", "🦁", "🐼", "🐨", "🐸", "🐵", "🐯", "🦄", "🐷", "🦊", "🐯", "🦧", "🦍", "🐴", "🐮", "🐏",
+        "🐫", "🐘", "🦏", "🐭", "🐹", "🐿️", "🦔", "🦇", "🦋", "🐻‍❄️", "🦃", "🦨", "🐔", "🦅", "🦆", "🦢", "🦉", "🐊", "🐢", "🐌",
+        "🐝", "🐞"
     ]
     
     var cards = [String]()
@@ -38,6 +39,8 @@ class ViewController: UIViewController {
     
     var gridRows: Int = 4
     var gridCols: Int = 4
+    
+    var quitButton: UIButton! // Quit button
     
     
     @IBOutlet weak var stackView: UIStackView!
@@ -140,7 +143,7 @@ class ViewController: UIViewController {
         easyButton.addShadow(opacity: 0.25, offsetSize: CGSize(width: 2, height: 5))
         
         let mediumButton = UIButton(type: .system)
-        mediumButton.setTitle("Medium (6x6)", for: .normal)
+        mediumButton.setTitle("Medium (4x5)", for: .normal)
         mediumButton.addTarget(self, action: #selector(startMediumGame), for: .touchUpInside)
         mediumButton.frame = CGRect(x: 100, y: 200, width: 200, height: 60)
         mediumButton.setTitleColor(.white, for: .normal)
@@ -152,7 +155,7 @@ class ViewController: UIViewController {
         mediumButton.addShadow(opacity: 0.25, offsetSize: CGSize(width: 2, height: 5))
         
         let hardButton = UIButton(type: .system)
-        hardButton.setTitle("Hard (8x8)", for: .normal)
+        hardButton.setTitle("Hard (6x6)", for: .normal)
         hardButton.addTarget(self, action: #selector(startHardGame), for: .touchUpInside)
         hardButton.frame = CGRect(x: 100, y: 300, width: 200, height: 60)
         hardButton.setTitleColor(.white, for: .normal)
@@ -201,24 +204,27 @@ class ViewController: UIViewController {
         gridCols = 4
         setupGame()
         setupUI()
+        setupQuitButton()
         startTimer()
     }
     
     @objc func startMediumGame() {
         currentMode = .medium // "Easy"
-        gridRows = 6
-        gridCols = 6
+        gridRows = 5
+        gridCols = 4
         setupGame()
         setupUI()
+        setupQuitButton()
         startTimer()
     }
     
     @objc func startHardGame() {
         currentMode = .hard // "Hard"
-        gridRows = 8
-        gridCols = 8
+        gridRows = 6
+        gridCols = 6
         setupGame()
         setupUI()
+        setupQuitButton()
         startTimer()
     }
     
@@ -230,9 +236,12 @@ class ViewController: UIViewController {
     }
     
     func setupGame() {
+        cards = [String]()
+        
         // Duplicate and shuffle card values based on grid size
         let totalCards = gridRows * gridCols
         let neededPairs = totalCards / 2
+        
         let selectedValues = Array(cardValues.prefix(neededPairs))
         let duplicatedValues = selectedValues + selectedValues // Duplicate for pairs
         cards = duplicatedValues.shuffled()
@@ -240,7 +249,7 @@ class ViewController: UIViewController {
         // Reset game state
         matchedPairs.removeAll()
         score = 0
-        remainingTime = 60
+        remainingTime = currentMode == .hard ? 90 : 60
         gameTimerLabel.text = "Time: \(remainingTime)s"
         scoreLabel.text = "Score: \(score)"
     }
@@ -251,22 +260,45 @@ class ViewController: UIViewController {
             subview.removeFromSuperview()
         }
         
+        cardButtons = []
+        
         let bgImageView = UIImageView(frame: CGRect(x: 0, y: 0, width: view.frame.width, height: view.frame.height))
         bgImageView.image = UIImage(named: "image_bg_2")
         bgImageView.contentMode = .scaleAspectFill
         view.addSubview(bgImageView)
         
+        // Create a container view for the score label
+        let scoreContainerView = UIView()
+        scoreContainerView.translatesAutoresizingMaskIntoConstraints = false
+        scoreContainerView.backgroundColor = currentMode == .hard ? .systemRed : currentMode == .medium ? .systemOrange : .systemGreen // Background color
+        scoreContainerView.layer.cornerRadius = 10  // Rounded corners
+        scoreContainerView.layer.borderWidth = 2  // Border width
+        scoreContainerView.layer.borderColor = UIColor.white.cgColor  // Border color
+        view.addSubview(scoreContainerView)
+        
         // Score label
         scoreLabel.translatesAutoresizingMaskIntoConstraints = false
         scoreLabel.text = "Score: \(score)"
-        scoreLabel.font = .systemFont(ofSize: 26, weight: .bold)
-        view.addSubview(scoreLabel)
+        scoreLabel.font = .systemFont(ofSize: 24, weight: .semibold)
+        scoreLabel.textColor = .white  // Text color
+        scoreContainerView.addSubview(scoreLabel)  // Add score label to container
+        
+        // Create a container view for the game timer label
+        let timerContainerView = UIView()
+        timerContainerView.translatesAutoresizingMaskIntoConstraints = false
+        timerContainerView.backgroundColor = currentMode == .hard ? .systemRed : currentMode == .medium ? .systemOrange : .systemGreen  // Background color
+        timerContainerView.layer.cornerRadius = 10  // Rounded corners
+        timerContainerView.layer.borderWidth = 2  // Border width
+        timerContainerView.layer.borderColor = UIColor.white.cgColor  // Border color
+        view.addSubview(timerContainerView)
         
         // Timer label
         gameTimerLabel.translatesAutoresizingMaskIntoConstraints = false
         gameTimerLabel.text = "Time: \(remainingTime)s"
-        gameTimerLabel.font = .systemFont(ofSize: 26, weight: .bold)
-        view.addSubview(gameTimerLabel)
+        gameTimerLabel.font = .systemFont(ofSize: 24, weight: .semibold)
+        gameTimerLabel.textColor = .white  // Text color
+        timerContainerView.addSubview(gameTimerLabel)  // Add game timer label to container
+        
         
         // Set up grid
         let gridLayout = UIStackView()
@@ -296,16 +328,94 @@ class ViewController: UIViewController {
         view.addSubview(gridLayout)
         
         NSLayoutConstraint.activate([
-            scoreLabel.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 20),
-            scoreLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            // Score container view
+            scoreContainerView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 40),
+            scoreContainerView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            scoreContainerView.heightAnchor.constraint(equalToConstant: 60),
+            scoreContainerView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
+            scoreContainerView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
             
-            gameTimerLabel.topAnchor.constraint(equalTo: scoreLabel.bottomAnchor, constant: 10),
-            gameTimerLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            // Score label inside the container
+            scoreLabel.centerXAnchor.constraint(equalTo: scoreContainerView.centerXAnchor),
+            scoreLabel.centerYAnchor.constraint(equalTo: scoreContainerView.centerYAnchor),
             
-            gridLayout.topAnchor.constraint(equalTo: gameTimerLabel.bottomAnchor, constant: 20),
+            // Timer container view
+            timerContainerView.topAnchor.constraint(equalTo: scoreContainerView.bottomAnchor, constant: 10),
+            timerContainerView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            timerContainerView.heightAnchor.constraint(equalToConstant: 60),
+            timerContainerView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
+            timerContainerView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
+            
+            // Timer label inside the container
+            gameTimerLabel.centerXAnchor.constraint(equalTo: timerContainerView.centerXAnchor),
+            gameTimerLabel.centerYAnchor.constraint(equalTo: timerContainerView.centerYAnchor),
+            
+            // Grid layout
+//            gridLayout.topAnchor.constraint(equalTo: timerContainerView.bottomAnchor, constant: 30),
             gridLayout.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             gridLayout.centerYAnchor.constraint(equalTo: view.centerYAnchor),
         ])
+    }
+    
+    // MARK: - Setup Quit Button
+        func setupQuitButton() {
+            quitButton = UIButton(type: .system)
+            quitButton.setTitle("Quit", for: .normal)
+            quitButton.titleLabel?.font = UIFont.boldSystemFont(ofSize: 18)
+            quitButton.setTitleColor(.white, for: .normal)
+            quitButton.backgroundColor = currentMode == .hard ? .systemRed : currentMode == .medium ? .systemOrange : .systemGreen
+            quitButton.layer.borderWidth = 2
+            quitButton.layer.borderColor = UIColor.white.cgColor
+            quitButton.layer.cornerRadius = 10
+            quitButton.addTarget(self, action: #selector(quitButtonTapped), for: .touchUpInside)
+            
+            // Add the button to the view
+            view.addSubview(quitButton)
+            
+            // Set Auto Layout constraints to position the button at the bottom
+            quitButton.translatesAutoresizingMaskIntoConstraints = false
+            
+            NSLayoutConstraint.activate([
+                quitButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -20),
+                quitButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+                quitButton.widthAnchor.constraint(equalToConstant: 100),
+                quitButton.heightAnchor.constraint(equalToConstant: 50)
+            ])
+        }
+    
+    @objc func quitButtonTapped() {
+        // Show a confirmation alert when the player taps the Quit button
+        let alertController = UIAlertController(title: "Quit Game", message: "Are you sure you want to quit the game?", preferredStyle: .alert)
+        
+        // "Yes" action to quit
+        let quitAction = UIAlertAction(title: "Yes", style: .destructive) { _ in
+            self.quitGame()
+        }
+        
+        // "Cancel" action to close the alert and stay in the game
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+        
+        alertController.addAction(quitAction)
+        alertController.addAction(cancelAction)
+        
+        present(alertController, animated: true, completion: nil)
+    }
+    
+    // MARK: - Quit Game Logic
+    func quitGame() {
+        // Reset the game state if necessary
+        matchedPairs.removeAll()
+        score = 0
+        remainingTime = 60
+        scoreLabel.text = "Score: \(score)"
+        gameTimerLabel.text = "Time: \(remainingTime)s"
+        
+        // Stop any running timers
+        timer?.invalidate()
+        
+        // You can show a custom "Game Over" screen or return to the home screen
+        // For example, call the method that sets up the main screen (setupModeSelection)
+        setupModeSelection()
     }
     
     // MARK: - Card Tap Event
@@ -416,6 +526,7 @@ class ViewController: UIViewController {
         // Reinitialize cards for a fresh start
         setupGame()
         setupUI()
+        setupQuitButton()
         startTimer()
     }
     
