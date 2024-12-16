@@ -13,6 +13,9 @@
 		7A2A83FF2D0AD0C9000DFB2B /* Base in Resources */ = {isa = PBXBuildFile; fileRef = 7A2A83FE2D0AD0C9000DFB2B /* Base */; };
 		7A2A84012D0AD0CB000DFB2B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7A2A84002D0AD0CB000DFB2B /* Assets.xcassets */; };
 		7A2A84042D0AD0CB000DFB2B /* Base in Resources */ = {isa = PBXBuildFile; fileRef = 7A2A84032D0AD0CB000DFB2B /* Base */; };
+		7A9ED8652D0FE0AE00811607 /* ScoreBoardVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A9ED8642D0FE0AE00811607 /* ScoreBoardVC.swift */; };
+		7A9ED8672D0FE21900811607 /* ScoreRecord.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A9ED8662D0FE21900811607 /* ScoreRecord.swift */; };
+		7A9ED8692D0FE43A00811607 /* ScoreCellTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A9ED8682D0FE43A00811607 /* ScoreCellTVC.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -24,6 +27,9 @@
 		7A2A84002D0AD0CB000DFB2B /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		7A2A84032D0AD0CB000DFB2B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		7A2A84052D0AD0CB000DFB2B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		7A9ED8642D0FE0AE00811607 /* ScoreBoardVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScoreBoardVC.swift; sourceTree = "<group>"; };
+		7A9ED8662D0FE21900811607 /* ScoreRecord.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScoreRecord.swift; sourceTree = "<group>"; };
+		7A9ED8682D0FE43A00811607 /* ScoreCellTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScoreCellTVC.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -63,6 +69,9 @@
 				7A2A84002D0AD0CB000DFB2B /* Assets.xcassets */,
 				7A2A84022D0AD0CB000DFB2B /* LaunchScreen.storyboard */,
 				7A2A84052D0AD0CB000DFB2B /* Info.plist */,
+				7A9ED8642D0FE0AE00811607 /* ScoreBoardVC.swift */,
+				7A9ED8662D0FE21900811607 /* ScoreRecord.swift */,
+				7A9ED8682D0FE43A00811607 /* ScoreCellTVC.swift */,
 			);
 			path = matchmania;
 			sourceTree = "<group>";
@@ -139,7 +148,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				7A2A83FC2D0AD0C9000DFB2B /* ViewController.swift in Sources */,
+				7A9ED8672D0FE21900811607 /* ScoreRecord.swift in Sources */,
+				7A9ED8692D0FE43A00811607 /* ScoreCellTVC.swift in Sources */,
 				7A2A83F82D0AD0C9000DFB2B /* AppDelegate.swift in Sources */,
+				7A9ED8652D0FE0AE00811607 /* ScoreBoardVC.swift in Sources */,
 				7A2A83FA2D0AD0C9000DFB2B /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

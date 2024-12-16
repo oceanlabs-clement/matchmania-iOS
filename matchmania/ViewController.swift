@@ -8,6 +8,10 @@
 import UIKit
 import WebKit
 
+enum GameMode {
+    case easy, medium, hard
+}
+
 class ViewController: UIViewController {
 
     // Unique animal emojis for the game
@@ -30,7 +34,7 @@ class ViewController: UIViewController {
     var timer: Timer?
     var remainingTime = 60
     
-    var currentMode: String = "Easy" // Default mode is Easy (4x4 grid)
+    var currentMode: GameMode = .easy // "Easy" // Default mode is Easy (4x4 grid)
     
     var gridRows: Int = 4
     var gridCols: Int = 4
@@ -77,6 +81,34 @@ class ViewController: UIViewController {
         callApiToCheckStatus()
     }
     
+//    func setupModeSelection() {
+//        let easyButton = UIButton(type: .system)
+//        easyButton.setTitle("Easy (4x4)", for: .normal)
+//        easyButton.addTarget(self, action: #selector(startEasyGame), for: .touchUpInside)
+//        
+//        let mediumButton = UIButton(type: .system)
+//        mediumButton.setTitle("Medium (5x5)", for: .normal)
+//        mediumButton.addTarget(self, action: #selector(startMediumGame), for: .touchUpInside)
+//        
+//        let hardButton = UIButton(type: .system)
+//        hardButton.setTitle("Hard (6x6)", for: .normal)
+//        hardButton.addTarget(self, action: #selector(startHardGame), for: .touchUpInside)
+//        
+//        let veryHardButton = UIButton(type: .system)
+//        veryHardButton.setTitle("Very Hard (8x8)", for: .normal)
+//        veryHardButton.addTarget(self, action: #selector(startVeryHardGame), for: .touchUpInside)
+//
+//        let timeAttackButton = UIButton(type: .system)
+//        timeAttackButton.setTitle("Time Attack", for: .normal)
+//        timeAttackButton.addTarget(self, action: #selector(startTimeAttackGame), for: .touchUpInside)
+//
+//        let buttonStackView = UIStackView(arrangedSubviews: [easyButton, mediumButton, hardButton, veryHardButton, timeAttackButton])
+//        buttonStackView.axis = .vertical
+//        buttonStackView.spacing = 20
+//        buttonStackView.translatesAutoresizingMaskIntoConstraints = false
+//        view.addSubview(buttonStackView)
+//    }
+    
     func setupModeSelection() {
         for subview in view.subviews {
             subview.removeFromSuperview()
@@ -88,7 +120,9 @@ class ViewController: UIViewController {
         view.addSubview(bgImageView)
         
         // Create UI elements
-        let logoImageView = UIImageView(image: UIImage(named: "logo"))
+//        let logoImageView = UIImageView(image: UIImage(named: "image_logo_menu"))
+        let logoImageView = UIImageView(frame: CGRect(x: view.frame.width / 2, y: 200, width: 200, height: 200))
+        logoImageView.image = UIImage(named: "image_logo_menu")
         logoImageView.translatesAutoresizingMaskIntoConstraints = false
         logoImageView.contentMode = .scaleAspectFit
         view.addSubview(logoImageView)
@@ -105,8 +139,20 @@ class ViewController: UIViewController {
         easyButton.titleLabel?.font = UIFont.systemFont(ofSize: 24, weight: .bold)
         easyButton.addShadow(opacity: 0.25, offsetSize: CGSize(width: 2, height: 5))
         
+        let mediumButton = UIButton(type: .system)
+        mediumButton.setTitle("Medium (6x6)", for: .normal)
+        mediumButton.addTarget(self, action: #selector(startMediumGame), for: .touchUpInside)
+        mediumButton.frame = CGRect(x: 100, y: 200, width: 200, height: 60)
+        mediumButton.setTitleColor(.white, for: .normal)
+        mediumButton.backgroundColor = .systemOrange
+        mediumButton.layer.cornerRadius = 10
+        mediumButton.layer.borderWidth = 2
+        mediumButton.layer.borderColor = UIColor.white.cgColor
+        mediumButton.titleLabel?.font = UIFont.systemFont(ofSize: 24, weight: .bold)
+        mediumButton.addShadow(opacity: 0.25, offsetSize: CGSize(width: 2, height: 5))
+        
         let hardButton = UIButton(type: .system)
-        hardButton.setTitle("Hard (6x6)", for: .normal)
+        hardButton.setTitle("Hard (8x8)", for: .normal)
         hardButton.addTarget(self, action: #selector(startHardGame), for: .touchUpInside)
         hardButton.frame = CGRect(x: 100, y: 300, width: 200, height: 60)
         hardButton.setTitleColor(.white, for: .normal)
@@ -117,8 +163,20 @@ class ViewController: UIViewController {
         hardButton.titleLabel?.font = UIFont.systemFont(ofSize: 24, weight: .bold)
         hardButton.addShadow(opacity: 0.25, offsetSize: CGSize(width: 2, height: 5))
         
+        let scoreboardButton = UIButton(type: .system)
+        scoreboardButton.setTitle("Scoreboard", for: .normal)
+        scoreboardButton.addTarget(self, action: #selector(navigateToScoreboard), for: .touchUpInside)
+        scoreboardButton.frame = CGRect(x: 100, y: 300, width: 200, height: 60)
+        scoreboardButton.setTitleColor(.white, for: .normal)
+        scoreboardButton.backgroundColor = .systemPurple
+        scoreboardButton.layer.cornerRadius = 10
+        scoreboardButton.layer.borderWidth = 2
+        scoreboardButton.layer.borderColor = UIColor.white.cgColor
+        scoreboardButton.titleLabel?.font = UIFont.systemFont(ofSize: 24, weight: .bold)
+        scoreboardButton.addShadow(opacity: 0.25, offsetSize: CGSize(width: 2, height: 5))
+        
         // Create StackView for buttons
-        let buttonStackView = UIStackView(arrangedSubviews: [easyButton, hardButton])
+        let buttonStackView = UIStackView(arrangedSubviews: [easyButton, mediumButton, hardButton, scoreboardButton])
         buttonStackView.axis = .vertical
         buttonStackView.spacing = 20
         buttonStackView.translatesAutoresizingMaskIntoConstraints = false
@@ -126,9 +184,9 @@ class ViewController: UIViewController {
         
         // Set Auto Layout constraints
         NSLayoutConstraint.activate([
-            logoImageView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 20),
+            logoImageView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 40),
             logoImageView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            logoImageView.heightAnchor.constraint(equalToConstant: 150),
+            logoImageView.heightAnchor.constraint(equalToConstant: 200),
             
             buttonStackView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             buttonStackView.centerYAnchor.constraint(equalTo: view.centerYAnchor),
@@ -138,7 +196,7 @@ class ViewController: UIViewController {
     }
     
     @objc func startEasyGame() {
-        currentMode = "Easy"
+        currentMode = .easy // "Easy"
         gridRows = 4
         gridCols = 4
         setupGame()
@@ -146,13 +204,29 @@ class ViewController: UIViewController {
         startTimer()
     }
     
-    @objc func startHardGame() {
-        currentMode = "Hard"
+    @objc func startMediumGame() {
+        currentMode = .medium // "Easy"
         gridRows = 6
         gridCols = 6
         setupGame()
         setupUI()
         startTimer()
+    }
+    
+    @objc func startHardGame() {
+        currentMode = .hard // "Hard"
+        gridRows = 8
+        gridCols = 8
+        setupGame()
+        setupUI()
+        startTimer()
+    }
+    
+    @objc func navigateToScoreboard() {
+        let scoreboardVC = ScoreboardVC()
+        scoreboardVC.modalPresentationStyle = .formSheet
+        present(scoreboardVC, animated: true)
+//        navigationController?.pushViewController(scoreboardVC, animated: true)
     }
     
     func setupGame() {
@@ -185,13 +259,13 @@ class ViewController: UIViewController {
         // Score label
         scoreLabel.translatesAutoresizingMaskIntoConstraints = false
         scoreLabel.text = "Score: \(score)"
-        scoreLabel.font = .systemFont(ofSize: 24, weight: .semibold)
+        scoreLabel.font = .systemFont(ofSize: 26, weight: .bold)
         view.addSubview(scoreLabel)
         
         // Timer label
         gameTimerLabel.translatesAutoresizingMaskIntoConstraints = false
         gameTimerLabel.text = "Time: \(remainingTime)s"
-        gameTimerLabel.font = .systemFont(ofSize: 24, weight: .semibold)
+        gameTimerLabel.font = .systemFont(ofSize: 26, weight: .bold)
         view.addSubview(gameTimerLabel)
         
         // Set up grid
@@ -321,9 +395,8 @@ class ViewController: UIViewController {
             self.resetGame()
         }
         let cancelAction = UIAlertAction(title: "Exit", style: .cancel) { _ in
-//            DispatchQueue.main.async {
-                self.setupModeSelection()
-//            }
+            self.saveScoreToHistory()
+            self.setupModeSelection()
         }
         
         alertController.addAction(resetAction)
@@ -344,6 +417,19 @@ class ViewController: UIViewController {
         setupGame()
         setupUI()
         startTimer()
+    }
+    
+    func saveScoreToHistory() {
+        // Save the score, game mode, and time to history
+        let timeFormatter = DateFormatter()
+        timeFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
+        let timeString = timeFormatter.string(from: Date())
+        
+        let gameMode = currentMode == .hard ? "Hard" : currentMode == .medium ? "Medium" : "Easy" // Easy or Hard
+        let score = self.score
+        
+        let scoreboardVC = ScoreboardVC()
+        scoreboardVC.saveScore(gameMode: gameMode, score: score, time: timeString)
     }
 }
 
